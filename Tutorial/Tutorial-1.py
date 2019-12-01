@@ -6,5 +6,14 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    return render_template('login.html')
+
+@app.route('/<usr>', methods=['POST', 'GET'])
+def user(usr):
+    return "<h1>{usr}</h1>"
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
