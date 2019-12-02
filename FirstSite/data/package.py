@@ -1,6 +1,9 @@
 import sqlalchemy as sa
 from data.modelbase import SqlAlchemyBase
 from datetime import datetime
+from data.releases import Release
+import sqlalchemy.orm as orm
+from typing import List
 
 class Package(SqlAlchemyBase):
     __tablename__ = 'packages'
@@ -18,6 +21,13 @@ class Package(SqlAlchemyBase):
     author_email = sa.Column(sa.String, index=True)
 
     license = sa.Column(sa.String, index=True)
+
+    # release relationship
+    releases: List[Release] = orm.relation('Release', order_by=[
+        Release.major_ver.desc(),
+        Release.minor_ver.desc(),
+        Release.build_ver.desc(),
+    ], back_populates='package')
 
     def __repr__(self):
         return '<Package {}>'.format(self.id)
