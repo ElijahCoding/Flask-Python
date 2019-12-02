@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta
+import sqlalchemy
 
 app = Flask(__name__)
 app.secret_key = 'demo_secret'
@@ -15,10 +16,11 @@ def login():
         session.permanent = True
         user = request.form['nm']
         session['user'] = user
-        flash(f'logged out, {user}', 'info')
+        flash(f'logged in')
         return redirect(url_for('user'))
     else:
         if "user" in session:
+            flash(f'already logged in')
             return redirect(url_for('user'))
         return render_template('login.html')
 
