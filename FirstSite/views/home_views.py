@@ -13,4 +13,4 @@ def index():
 @blueprint.route('/about')
 @response(template_file='home/about.html')
 def about():
-    return flask.render_template('home/about.html')
+    return {}
