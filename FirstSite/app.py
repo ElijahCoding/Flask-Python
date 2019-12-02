@@ -1,15 +1,9 @@
 import flask
 
 from infrastructure.view_modifiers import response
+from services.package_service import get_latest_packages
 
 app = flask.Flask(__name__)
-
-def get_latest_packages():
-    return [
-        {'name': 'flask', 'version': '1.2.3'},
-        {'name': 'sqlalchemy', 'version': '2.2.0'},
-        {'name': 'passlib', 'version': '3.0.0'},
-    ]
 
 @app.route('/')
 @response(template_file='home/index.html')
@@ -18,6 +12,7 @@ def index():
     return {"packages": test_packages}
 
 @app.route('/about')
+@response(template_file='home/about.html')
 def about():
     return flask.render_template('home/about.html')
 
