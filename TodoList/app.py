@@ -40,6 +40,19 @@ def delete(id):
         return redirect('/')
     except:
         return 'Error deleting'
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    task = Todo.query.get_or_404(id)
+
+    if request.method == 'POST':
+        pass
+    else:
+        return render_template('update.html', task=task)
+
+
+
+
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True)
