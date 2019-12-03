@@ -9,6 +9,11 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1:8889/fresh'
 
+    db.init_app(app)
+    # from GuestBook import db, create_app
+    # from GuestBook.models import Comment
+    # db.create_all(app=create_app())
+
     from .views import main
     app.register_blueprint(main)
 
