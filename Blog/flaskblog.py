@@ -1,10 +1,15 @@
 from flask import Flask, render_template, flash, url_for, redirect
 from secrets import token_hex
+from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = token_hex(16)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1:8889/fresh'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 posts = [
     {
