@@ -15,3 +15,11 @@ class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     owner_id = db.Column(db.Integer, db.ForeignKey('person.id')) # table
+
+
+db.create_all()
+
+'''
+from one_to_many import db
+db.create_all()
+'''
