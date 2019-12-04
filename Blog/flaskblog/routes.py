@@ -4,6 +4,7 @@ from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskblog.models import User, Post
 import secrets, os
 from flask_login import login_user, current_user, logout_user, login_required
+from PIL import Image
 
 posts = [
     {
@@ -73,6 +74,12 @@ def save_picture(form_picture):
         'static/profile_pics',
         picture_fn
     )
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
     form_picture.save(picture_path)
 
     return picture_fn
