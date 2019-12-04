@@ -112,3 +112,19 @@ def new_post():
         legend='New Post',
         form=form
     )
+
+@app.route('/post/<int:post_id>')
+@login_required
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.title, post=post)
+
+@app.route('/post/<int:post_id>/update')
+@login_required
+def update_post(post_id):
+    pass
+
+@app.route('/post/<int:post_id>/delete', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    pass
