@@ -1,17 +1,7 @@
-from flask import Flask, render_template, flash, url_for, redirect
-from secrets import token_hex
-from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = token_hex(16)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1:8889/fresh'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-from models import User, Post
-
+from flask import render_template, url_for, flash, redirect
+from flaskblog import app
+from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.models import User, Post
 
 posts = [
     {
@@ -27,11 +17,6 @@ posts = [
         'date_posted': 'April 21, 2018'
     }
 ]
-
-@app.route('/')
-@app.route("/home")
-def index():
-    return render_template('home.html', posts=posts)
 
 @app.route("/about")
 def about():
@@ -55,8 +40,3 @@ def login():
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-
-if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
